@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Digital Journal - Add Blog</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Add your additional styles here */
+        .blog-post {
+            /* Default style */
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Additional styles based on user selection */
+        .blog-post.blue {
+            border-color: #3498db;
+        }
+
+        .blog-post.green {
+            border-color: #2ecc71;
+        }
+
+        .blog-post.purple {
+            border-color: #9b59b6;
+        }
+
+        /* Center the color options */
+        .color-options {
+            text-align: center;
+        }
+
+        /* Center the font options */
+        .font-options {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>My Digital Journal</h1>
+        <h6>-R Lalrinmawii</h6>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="blog-listing.html">Blogs</a></li>
+                <li><a href="add-blog.html">Add Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section>
+        <h2>Add a New Blog</h2>
+        
+        <form>
+            <label for="blogTitle">Title:</label>
+            <input type="text" id="blogTitle" name="blogTitle" required>
+
+            <label for="blogContent">Content:</label>
+            <textarea id="blogContent" name="blogContent" rows="8" required></textarea>
+
+            <label for="blogImage">Image URL:</label>
+            <input type="url" id="blogImage" name="blogImage">
+
+            <!-- Centered color options -->
+            <div class="color-options">
+                <label for="textColor">Text Color:</label>
+                <input type="color" id="textColor" name="textColor" value="#000000">
+
+                <label for="bgColor">Background Color:</label>
+                <input type="color" id="bgColor" name="bgColor" value="#ffffff">
+            </div>
+
+            <!-- Centered font options -->
+            <div class="font-options">
+                <label for="blogFont">Select Font:</label>
+                <select id="blogFont" name="blogFont">
+                    <option value="default">Default</option>
+                    <option value="serif">Serif</option>
+                    <option value="sans-serif">Sans-serif</option>
+                    <option value="monospace">Monospace</option>
+                </select>
+            </div>
+            <br>
+
+            <!-- Call the JavaScript function when the form is submitted -->
+            <button type="button" onclick="addBlog()">Publish Blog</button>
+        </form>
+    </section>
+
+    <section id="mainContent">
+        <!-- Existing blog posts will be displayed here -->
+    </section>
+
+    <script>
+        function addBlog() {
+            // Get values from the form
+            var title = document.getElementById('blogTitle').value;
+            var content = document.getElementById('blogContent').value;
+            var imageUrl = document.getElementById('blogImage').value;
+            var textColor = document.getElementById('textColor').value;
+            var bgColor = document.getElementById('bgColor').value;
+            var font = document.getElementById('blogFont').value;
+
+            // Create a new blog post element
+            var newPost = document.createElement('article');
+            newPost.classList.add('blog-post');
+            newPost.style.color = textColor;
+            newPost.style.backgroundColor = bgColor;
+            newPost.style.fontFamily = font;
+            newPost.innerHTML = `
+                <h2>${title}</h2>
+                <p>Published on: <time datetime="${new Date().toISOString()}">${new Date().toLocaleDateString()}</time></p>
+                <img src="${imageUrl}" alt="${title} Image">
+                <p>${content}</p>
+            `;
+
+            // Append the new post to the main content area
+            document.getElementById('mainContent').appendChild(newPost);
+
+            // Clear the form fields
+            document.getElementById('blogTitle').value = '';
+            document.getElementById('blogContent').value = '';
+            document.getElementById('blogImage').value = '';
+            document.getElementById('textColor').value = '#000000';
+            document.getElementById('bgColor').value = '#ffffff';
+            document.getElementById('blogFont').value = 'default';
+        }
+    </script>
+
+    <footer>
+        <p>&copy; 2023 My Digital Journal. All rights reserved.</p>
+        <a href="contactme.html">Let's Connect</a>
+    </footer>
+</body>
+</html>
